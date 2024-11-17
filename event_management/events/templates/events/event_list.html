@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Event List</h1>
+        <a href="{% url 'event_new' %}">Create New Event</a>
+        <ul>
+            {% for events_event in events %}
+                <li>
+                    <a href="{% url 'event_detail' pk=event.pk %}">{{ events_event.title }}</a>
+                    <p>{{ events_event.description|truncatewords:30 }}</p>
+                    <p><em>{{ events_event.start_date }} at {{ events_event.start_time }}</em></p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

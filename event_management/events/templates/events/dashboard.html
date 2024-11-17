@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center mt-4">Welcome, {{ user.username }}!</h1>
+
+    {% if messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="row mt-4">
+        <!-- Notifications Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4>Notifications</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>No new notifications</li>
+                        <!-- Add dynamic notifications here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Section -->
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4>Upcoming Events</h4>
+                </div>
+                <div class="card-body">
+                    {% if events %}
+                        <ul class="list-group">
+                            {% for event in events %}
+                                <li class="list-group-item">
+                                    <strong>{{ event.name }}</strong>
+                                    <span class="float-right">
+                                        <a href="{% url 'event_detail' event.pk %}" class="btn btn-sm btn-info">View</a>
+                                        <a href="#" class="btn btn-sm btn-primary">Buy Ticket</a>
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No events available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Create Event Section -->
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h4>Create a New Event</h4>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'event_new' %}" class="btn btn-success w-100">Create Event</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

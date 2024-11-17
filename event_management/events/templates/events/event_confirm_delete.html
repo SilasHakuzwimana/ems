@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Are you sure you want to delete "{{ event.title }}"?</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Yes, delete</button>
+            <a href="{% url 'event_detail' pk=event.pk %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

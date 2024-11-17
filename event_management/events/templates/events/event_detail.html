@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ event.title }}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ event.title }}</h1>
+        <p>{{ event.description }}</p>
+        <p>Start Date: {{ event.start_date }}</p>
+        <p>End Date: {{ event.end_date }}</p>
+        <p>Start Time: {{ event.start_time }}</p>
+        <p>End Time: {{ event.end_time }}</p>
+        <p>Location: {{ event.location }}</p>
+        <p>Capacity: {{ event.capacity }}</p>
+        <a href="{% url 'event_edit' pk=event.pk %}">Edit</a>
+        <a href="{% url 'event_delete' pk=event.pk %}">Delete</a>
+        <a href="{% url 'event_list' %}">Back to Event List</a>
+    </div>
+    <div class="container">
+        <h2>Purchase a Ticket</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ ticket_form.as_p }}
+            <button type="submit" name="purchase_ticket">Purchase Ticket</button>
+        </form>  
+        <h2>Leave a Review</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit" name="submit_review">Submit Review</button>
+        </form>
+    </div>
+</body>
+</html>
